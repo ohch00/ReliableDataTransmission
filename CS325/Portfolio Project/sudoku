@@ -1,0 +1,108 @@
+def sudoku():
+    sudoku_starter = [0, 4, 0, 1, 0, 0, 7, 0, 0,
+                      8, 0, 0, 0, 7, 5, 0, 0, 9,
+                      0, 2, 0, 3, 0, 0, 5, 4, 0,
+                      0, 5, 0, 2, 9, 0, 0, 0, 4,
+                      0, 7, 4, 5, 0, 8, 6, 9, 0,
+                      3, 0, 0, 0, 4, 6, 0, 5, 0,
+                      0, 8, 5, 0, 0, 3, 0, 1, 0,
+                      4, 0, 0, 9, 5, 0, 0, 0, 8,
+                      0, 0, 2, 0, 0, 4, 0, 6, 0]
+
+    # get input
+    user_solution = get_input(sudoku_starter)
+
+    # checker to confirm format is correct
+    if format_check(user_solution) is False:
+        print("Error in input. Please try again.")
+        user_solution = get_input(sudoku_starter)
+
+    # checker to confirm original numbers are in place
+    if original_board_check(user_solution) is False:
+        print("Original board has been altered. Please try again.")
+        user_solution = get_input(sudoku_starter)
+
+    # algorithm to determine correctness; check if numbers 1-9 is used once
+    # in every square, row, and column
+
+    # row checker
+    row_ans = row_check(user_solution)
+
+    # column checker
+    column_ans = column_check(user_solution)
+
+    # square checker
+    square_ans = square_check(user_solution)
+
+
+def get_input(sudoku_starter):
+    print("Here is your puzzle: ")
+    board_printer(sudoku_starter)
+
+    # for loop to print sudoku puzzle
+    print("\n" + "Please replace the '+' signs in the above board with "
+                 "integers")
+    print("The solution has to be submitted in the same format as the board "
+          "above.")
+    print("Please write 9 integers, with each integer separated by a "
+          "space.")
+    print("Press enter after 9 integers have been entered on one line.")
+    print("Please repeat the above process 8 more times.")
+
+    print("\n" + "Please enter your solution.")
+
+    user_input = []
+    for i in range(0, 9):
+        user_input.append(input().split())
+
+    user_solution = []
+    for i in user_input:
+        for j in i:
+            user_solution.append(j)
+
+    return user_solution
+
+
+def board_printer(sudoku_list):
+    counter = 0
+    for i in sudoku_list:
+        counter += 1
+        if i == 0:
+            i = "+"
+            print(i, end=" ")
+        else:
+            print(i, end=" ")
+        if counter % 9 == 0:
+            print(" ")
+
+
+def format_check(user_solution):
+    # check only numbers 1-9 are used
+    # check right number of numbers are entered (81 numbers exactly)
+    pass
+
+
+def original_board_check(user_solution):
+    pass
+
+
+def row_check(user_solution):
+    # shorten range to 9 for each row-- currently iterates over all numbers
+    for i in range(len(user_solution)):
+        counter = 0
+        current = user_solution[i]
+        for j in range(i, i+1):
+            if current == user_solution[j]:
+                return False
+    return True
+
+
+def column_check(user_solution):
+    pass
+
+
+def square_check(user_solution):
+    pass
+
+
+sudoku()
